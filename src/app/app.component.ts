@@ -1,15 +1,22 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ChatBox';
+  message: any;
+  messageArray: Array<any> = [];
 
-  // tslint:disable-next-line:typedef
-  open() {
+  constructor() {
+  }
+
+  ngOnInit(): void {
+  }
+
+  openUi(): void {
     const mySidebar = document.getElementById('mySidebar');
     const overlayBg = document.getElementById('myOverlay');
     if (mySidebar.style.display === 'block') {
@@ -21,11 +28,27 @@ export class AppComponent {
     }
   }
 
-  // Close the sidebar with the close button
-  close() {
+  closeUI(): void {
     const mySidebar = document.getElementById('mySidebar');
     const overlayBg = document.getElementById('myOverlay');
     mySidebar.style.display = 'none';
     overlayBg.style.display = 'none';
+  }
+
+  send(): void {
+    console.log(this.message);
+    const x = {
+      sender: 'Username',
+      message: this.message,
+      date: new Date()
+    };
+    console.log(x);
+    this.messageArray.push(x);
+    console.log(this.messageArray);
+    this.loadMessages();
+  }
+
+  private loadMessages(): void {
+    this.messageArray = this.messageArray;
   }
 }
